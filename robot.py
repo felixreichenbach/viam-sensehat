@@ -32,8 +32,9 @@ async def main():
     # SenseHat
     sensehat = Sensor.from_robot(robot, "sensehat")
 
-    # You can use extra to filter the sensor readings as shown below or remove it for the full list
-    measurements = await sensehat.get_readings(extra={"sensors": ["temperature","pressure", "humidity", "inexistant"]})
+    # You can use extra to filter the sensor readings as shown below or if empty the full list -> https://sense-emu.readthedocs.io/
+    measurements = await sensehat.get_readings(extra={"sensors": ["temperature", "pressure", "humidity", "gyroscope", "inexistant"]})
+    # measurements = await sensehat.get_readings()
     print(f"Sensor values: {measurements}")
 
     # Don't forget to close the robot when you're done!

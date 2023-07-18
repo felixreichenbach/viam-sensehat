@@ -20,8 +20,7 @@ LOGGER = getLogger(__name__)
 
 
 class sensehat_sensors(Sensor, Reconfigurable):
-    MODEL: ClassVar[Model] = Model(ModelFamily(
-        "rapi", "sensor"), "sensehat_sensors")
+    MODEL: ClassVar[Model] = Model(ModelFamily("rapi", "sensor"), "sensehat_sensors")
 
     # create any class parameters here, 'some_pin' is used as an example (change/add as needed)
     some_pin: int
@@ -64,23 +63,21 @@ class sensehat_sensors(Sensor, Reconfigurable):
 
         measurements = {}
 
-        if extra:
+        if "sensors" in extra:
             for (key, values) in extra.items():
-                if key == "sensors":
-                    for value in values:
-                        match value:
-                            case "temperature":
-                                measurements[value] = self.sensehat.temperature
-                            case "humidity":
-                                measurements[value] = self.sensehat.humidity
-                            case "pressure":
-                                measurements[value] = self.sensehat.pressure
-                            case _:
-                                LOGGER.warn(f'No sensor "{value}" available!')
+                for value in values:
+                    try:
+                        measurements[value] = getattr(self.sensehat, value)
+                    except:
+                        LOGGER.warn(f'No sensor "{value}" available!')
         else:
             measurements = {
                 "temperature": self.sensehat.temperature,
                 "humidity": self.sensehat.humidity,
-                "pressure": self.sensehat.pressure
+                "pressure": self.sensehat.pressure,
+                "gyroscope": self.sensehat.gyroscope,
+                "compass": self.sensehat.compass,
+                "accelerometer": self.sensehat.accelerometer,
+                "orientation": self.sensehat.orientation
             }
         return measurements
