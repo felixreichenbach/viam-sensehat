@@ -3,7 +3,7 @@ import sys
 
 from viam.components.sensor import Sensor
 from viam.module.module import Module
-from .sensehat_sensors import sensehat_sensors
+from .sensehat_viam import SensehatViam
 
 async def main(address: str):
     """This function creates and starts a new module, after adding all desired resources.
@@ -12,7 +12,7 @@ async def main(address: str):
         address (str): The address to serve the module on
     """
     module = Module(address)
-    module.add_model_from_registry(Sensor.SUBTYPE, sensehat_sensors.MODEL)
+    module.add_model_from_registry(Sensor.SUBTYPE, SensehatViam.MODEL)
     await module.start()
 
 if __name__ == "__main__":

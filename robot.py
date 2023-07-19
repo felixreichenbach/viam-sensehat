@@ -37,6 +37,10 @@ async def main():
     # measurements = await sensehat.get_readings()
     print(f"Sensor values: {measurements}")
 
+
+    # LED Matrix: Display a text
+    await sensehat.do_command({"led": "HELLO WORLD"})
+
     # Don't forget to close the robot when you're done!
     await robot.close()
 

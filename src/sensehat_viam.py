@@ -1,4 +1,4 @@
-from typing import ClassVar, Mapping, Sequence, Any, Dict, Optional, cast
+from typing import ClassVar, Mapping, Sequence, Any, Dict, Optional
 from typing_extensions import Self
 
 from viam.module.types import Reconfigurable
@@ -8,6 +8,7 @@ from viam.resource.base import ResourceBase
 from viam.resource.types import Model, ModelFamily
 
 from viam.components.sensor import Sensor
+from viam.components.component_base import ValueTypes
 from viam.logging import getLogger
 
 
@@ -19,8 +20,8 @@ import asyncio
 LOGGER = getLogger(__name__)
 
 
-class sensehat_sensors(Sensor, Reconfigurable):
-    MODEL: ClassVar[Model] = Model(ModelFamily("rapi", "sensor"), "sensehat_sensors")
+class SensehatViam(Sensor, Reconfigurable):
+    MODEL: ClassVar[Model] = Model(ModelFamily("rapi", "sensor"), "sensehat")
 
     # create any class parameters here, 'some_pin' is used as an example (change/add as needed)
     some_pin: int
@@ -81,3 +82,14 @@ class sensehat_sensors(Sensor, Reconfigurable):
                 "orientation": self.sensehat.orientation
             }
         return measurements
+
+    async def do_command(self, command: Mapping[str, ValueTypes], *, timeout: Optional[float] = None, **kwargs) -> Mapping[str, ValueTypes]:
+
+        for (k, v) in command.items():
+            match k:
+                case "led":
+                    self.sensehat.show_message(v, scroll_speed=0.1, text_colour=[255, 255, 255], back_colour=[0, 0, 0])
+                case _:
+                    LOGGER.warn(f"No matching command!")
+        return {}
+        

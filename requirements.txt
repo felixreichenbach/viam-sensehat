@@ -11,3 +11,4 @@ python-dotenv==1.0.0
 sense-emu==1.2.1
 typing_extensions==4.7.1
 viam-sdk==0.4.4
+PyGObject==3.44.1
