@@ -20,7 +20,7 @@ Documentation: https://sense-emu.readthedocs.io/
       "depends_on": [],
       "type": "sensor",
       "name": "sensehat",
-      "model": "rapi:sensor:sensehat_sensors"
+      "model": "rapi:sensor:sensehat"
     }
 ```
 
