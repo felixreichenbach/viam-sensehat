@@ -1,4 +1,4 @@
-# viam-sensehat
+# Viam-Sensehat Python
 
 Documentation: https://sense-emu.readthedocs.io/
 
