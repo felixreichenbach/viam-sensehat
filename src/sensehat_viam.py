@@ -86,10 +86,9 @@ class SensehatViam(Sensor, Reconfigurable):
     async def do_command(self, command: Mapping[str, ValueTypes], *, timeout: Optional[float] = None, **kwargs) -> Mapping[str, ValueTypes]:
 
         for (k, v) in command.items():
-            match k:
-                case "led":
-                    self.sensehat.show_message(v, scroll_speed=0.1, text_colour=[255, 255, 255], back_colour=[0, 0, 0])
-                case _:
-                    LOGGER.warn(f"No matching command!")
+            if k == "led":
+                self.sensehat.show_message(v, scroll_speed=0.1, text_colour=[255, 255, 255], back_colour=[0, 0, 0])
+            else:
+                LOGGER.warn(f"No matching command!")
         return {}
         
