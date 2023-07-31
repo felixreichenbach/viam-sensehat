@@ -12,7 +12,7 @@ from viam.components.component_base import ValueTypes
 from viam.logging import getLogger
 
 
-from sense_emu import SenseHat
+from sense_hat import SenseHat
 
 import time
 import asyncio
