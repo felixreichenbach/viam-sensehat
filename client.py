@@ -39,7 +39,7 @@ async def main():
 
 
     # LED Matrix: Display a text
-    await sensehat.do_command({"led": "HELLO WORLD"})
+    await sensehat.do_command({"led2": "HELLO WORLD"})
 
     # Don't forget to close the robot when you're done!
     await robot.close()
